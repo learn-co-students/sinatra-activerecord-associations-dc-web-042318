@@ -6,7 +6,7 @@
 2. Understand the has many/ belongs to relationship.
 
 
-### Introduction 
+### Introduction
 
 Previously, we learned about foreign and primary keys in SQL and how they relate tables to one another. In this lesson, we're going to learn how to do this using ActiveRecord. This lab has pre-written code that you can follow along with - feel free to fork and clone the repo locally.
 
@@ -19,7 +19,7 @@ The end goal of this readme is to create a relationship in our app that mimics t
 First, we create a cats table from the command line:
 `rake db:create_migration NAME="create_cats"`
 
-This will give us an empty migration in our `db/migrate/` folder. Now lets give our cats table attributes: `name`, `age` and `breed`. This will go into our `change` method.
+This   will give us an empty migration in our `db/migrate/` folder. Now lets give our cats table attributes: `name`, `age` and `breed`. This will go into our `change` method.
 
 ```ruby
 class CreateCats < ActiveRecord::Migration
@@ -34,7 +34,7 @@ end
 ```
 
 #### Review: Primary Keys
- 
+
 A primary key uniquely identifies each record in a table. It must be unique and cannot have NULL values. Luckily, ActiveRecord will create the primary key for us and will also auto-increment it every time we save a new row in our table.
 
 Go ahead and use Tux to create three instances of the Cat class:
@@ -54,25 +54,25 @@ Owner.create(:name => "Ann")
 ```
 Our `cats` table looks like this:
 
-| id  | name    | age | breed         |
-|-----|-----    |-----|------         |
-| 1   | Maru    | 3   | Scottish Fold |
-| 2   | Hannah  | 2   | Tabby         |
-| 3   | Patches | 2   | Calico        |
+| id    | name    | age   | breed         |
+| ----- | ------- | ----- | ------------- |
+| 1     | Maru    | 3     | Scottish Fold |
+| 2     | Hannah  | 2     | Tabby         |
+| 3     | Patches | 2     | Calico        |
 
 
 Our `owners` table looks like this:
 
-| id  | name      |
-|-----|-----      |
-| 1   | Sophie    |
-| 2   | Ann       |
+| id    | name   |
+| ----- | ------ |
+| 1     | Sophie |
+| 2     | Ann    |
 
 Now, we need to tell our tables how to relate to each other. This is where we'll use a foreign key.
 
 #### Using Foreign Keys
 
-A foreign key points to a primary key in another table. In ActiveRecord we will use the `tablename_id` convention. To add the foreign key to our cats table, we will create another migration. 
+A foreign key points to a primary key in another table. In ActiveRecord we will use the `tablename_id` convention. To add the foreign key to our cats table, we will create another migration.
 
 The foreign key always sits on the table of the object that belongs to. In this case, because cats belong to an owner, the owner_id becomes a column in the cats table.
 
@@ -86,17 +86,17 @@ end
 
 Our `cats` table should look like this:
 
-| id  | name    | age | breed         | owner_id |
-|-----|-----    |-----|------         |-----     |
-| 1   | Maru    | 3   | Scottish Fold | 1        |
-| 2   | Hannah  | 2   | Tabby         | 2        |
-| 3   | Patches | 2   | Calico        | 1        |
+| id    | name    | age   | breed         | owner_id |
+| ----- | ------- | ----- | ------------- | -------- |
+| 1     | Maru    | 3     | Scottish Fold | 1        |
+| 2     | Hannah  | 2     | Tabby         | 2        |
+| 3     | Patches | 2     | Calico        | 1        |
 
 
 We now know what our table should look like. However, we haven't told our application how to relate the models to each other.
 
 
-#### `belong_to` and `has_many` 
+#### `belong_to` and `has_many`
 
 Before we write our association let's think about our table structure: A cat belongs to an owner, and an owner can have many cats.
 
